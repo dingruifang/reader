@@ -81,6 +81,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0") // 用于解析 JSON 数据
+//    implementation("org.springframework.boot:spring-boot-starter-websocket:2.1.6.RELEASE")
+//    implementation("org.java-websocket:Java-WebSocket:1.3.7")
+
     // vertx
     implementation("io.vertx:vertx-core:3.8.1")
     implementation("io.vertx:vertx-lang-kotlin:3.8.1")
@@ -125,6 +129,7 @@ dependencies {
 
     // 转换繁体
     // implementation("com.github.liuyueyi.quick-chinese-transfer:quick-transfer-core:0.2.1")
+    implementation(kotlin("script-runtime"))
 }
 
 // val compileKotlin: KotlinCompile by tasks

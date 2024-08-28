@@ -2,7 +2,9 @@ package io.legado.app.model.analyzeRule
 
 import com.jayway.jsonpath.JsonPath
 import com.jayway.jsonpath.ReadContext
+import io.vertx.core.json.JsonArray
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Suppress("RegExpRedundantEscape")
 class AnalyzeByJSonPath(json: Any) {
@@ -147,7 +149,8 @@ class AnalyzeByJSonPath(json: Any) {
                 try {
                     return it.read<ArrayList<Any>>(rules[0])
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    return ArrayList()
+//                    e.printStackTrace()
                 }
             }
         } else {

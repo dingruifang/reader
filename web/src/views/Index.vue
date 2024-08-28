@@ -1279,6 +1279,7 @@ export default {
       return this.$root.$children[0].loadBookSource(refresh);
     },
     searchBook(page) {
+      console.log('page: ', page);
       if (!this.$store.state.connected) {
         this.$message.error("后端未连接");
         return;
@@ -1401,6 +1402,7 @@ export default {
         this.searchResult = [];
       }
       const url = buildURL(this.api + "/searchBookMultiSSE", params);
+      console.log('url是是是是是：', url);
 
       tryClose();
 
@@ -1408,6 +1410,7 @@ export default {
         withCredentials: true
       });
       this.searchEventSource.addEventListener("error", e => {
+        console.log('error： ', e);
         this.loadingMore = false;
         tryClose();
         try {
@@ -1423,6 +1426,7 @@ export default {
       });
       let oldSearchResultLength = this.searchResult.length;
       this.searchEventSource.addEventListener("end", e => {
+        console.log('end： ', e);
         this.loadingMore = false;
         tryClose();
         try {
@@ -1440,6 +1444,7 @@ export default {
         }
       });
       this.searchEventSource.addEventListener("message", e => {
+        console.log('message： ', e);
         try {
           if (e.data) {
             const result = JSON.parse(e.data);
