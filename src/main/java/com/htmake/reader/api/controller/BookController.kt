@@ -24,6 +24,7 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.client.WebClient
+import io.vertx.kotlin.core.json.Json
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -725,7 +726,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
             .setChunked(true);
 
         if (!checkAuth(context)) {
-            response.write("event: error\n")
+//            response.write("event: error\n")
             response.end(
                 "data: " + jsonEncode(
                     returnData.setData("NEED_LOGIN").setErrorMsg("请登录后使用"),
@@ -756,22 +757,27 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         }
         var userNameSpace = getUserNameSpace(context)
         var userBookSourceList = loadBookSourceStringList(userNameSpace, bookSourceGroup)
-        if (userBookSourceList.size <= 0) {
-            response.write("event: error\n")
-            bookInfoByJson.add(jsonEncode(returnData.setErrorMsg("未配置书源"), false))
-            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源"), false) + "\n\n")
+        if (userBookSourceList.isEmpty()) {
+//            response.write("event: error\n")
+//            bookInfoByJson.add(jsonEncode(returnData.setErrorMsg("未配置书源"), false))
+//            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源"), false) + "\n\n")
+
+            response.end(jsonEncode(returnData.setErrorMsg("未配置书源")))
             return
         }
         if (key.isNullOrEmpty()) {
-            response.write("event: error\n")
-            bookInfoByJson.add(jsonEncode(returnData.setErrorMsg("请输入搜索关键字"), false))
-            response.end("data: " + jsonEncode(returnData.setErrorMsg("请输入搜索关键字"), false) + "\n\n")
+//            response.write("event: error\n")
+//            bookInfoByJson.add(jsonEncode(returnData.setErrorMsg("请输入搜索关键字"), false))
+//            response.end("data: " + jsonEncode(returnData.setErrorMsg("请输入搜索关键字"), false) + "\n\n")
+
+            response.end(jsonEncode(returnData.setErrorMsg("请输入搜索关键字")))
             return
         }
         if (lastIndex >= userBookSourceList.size - 1) {
-            response.write("event: error\n")
-            bookInfoByJson.add(jsonEncode(returnData.setErrorMsg("没有更多了"), false))
-            response.end("data: " + jsonEncode(returnData.setErrorMsg("没有更多了"), false) + "\n\n")
+//            response.write("event: error\n")
+//            bookInfoByJson.add(jsonEncode(returnData.setErrorMsg("没有更多了"), false))
+//            response.end("data: " + jsonEncode(returnData.setErrorMsg("没有更多了"), false) + "\n\n")
+            response.end(jsonEncode(returnData.setErrorMsg("没有更多了")))
             return
         }
 
@@ -813,7 +819,8 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
                 }
             }
             bookInfoByJson.add(jsonEncode(mapOf("lastIndex" to lastIndex, "data" to loopResult), false))
-            response.write("data: " + jsonEncode(mapOf("lastIndex" to lastIndex, "data" to loopResult), false) + "\n\n")
+//            response.write("data: " + jsonEncode(mapOf("lastIndex" to lastIndex, "data" to loopResult), false) + "\n\n")
+            response.write(jsonEncode(returnData.setData(loopResult)))
             logger.info("Loog: {} resultList.size: {}", loopCount, resultList.size)
 
             if (isEnd || loopCount >= concurrentLoopCount) {
@@ -823,8 +830,9 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
                 resultList.size < searchSize
             }
         }
-        response.write("event: end\n")
-        response.end("data: " + jsonEncode(mapOf("lastIndex" to lastIndex), false) + "\n\n")
+//        response.write("event: end\n")
+//        response.end("data: " + jsonEncode(mapOf("lastIndex" to lastIndex), false) + "\n\n")
+        response.end()
     }
 
     suspend fun searchBookSource(context: RoutingContext): ReturnData {
