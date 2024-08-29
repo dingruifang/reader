@@ -762,7 +762,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
 //            bookInfoByJson.add(jsonEncode(returnData.setErrorMsg("未配置书源"), false))
 //            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源"), false) + "\n\n")
 
-            response.end(jsonEncode(returnData.setErrorMsg("未配置书源")))
+            response.end(jsonEncode(returnData.setErrorMsg("未配置书源1")))
             return
         }
         if (key.isNullOrEmpty()) {
