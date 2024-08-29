@@ -122,7 +122,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
                 bookSource = getBookSourceString(context)
             }
             if (bookSource.isNullOrEmpty()) {
-                return returnData.setErrorMsg("未配置书源")
+                return returnData.setErrorMsg("未配置书源10")
             }
             bookInfo = mergeBookCacheInfo(WebBook(bookSource, appConfig.debugLog).getBookInfo(bookUrl))
         }
@@ -319,7 +319,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
                 bookSource = getBookSourceString(context)
             }
             if (bookSource.isNullOrEmpty()) {
-                return returnData.setErrorMsg("未配置书源")
+                return returnData.setErrorMsg("未配置书源9")
             }
             bookInfo = mergeBookCacheInfo(WebBook(bookSource, appConfig.debugLog).getBookInfo(bookUrl))
             // 缓存书籍信息
@@ -328,7 +328,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
             bookSource = getBookSourceString(context, bookInfo.origin)
         }
         if (!bookInfo.isLocalBook() && bookSource.isNullOrEmpty()) {
-            return returnData.setErrorMsg("未配置书源")
+            return returnData.setErrorMsg("未配置书源8")
         }
         bookInfo.setRootDir(getWorkDir())
         bookInfo.setUserNameSpace(userNameSpace)
@@ -375,7 +375,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         var bookSource = getBookSourceStringBySourceURL(bookInfo.origin, userNameSpace)
 
         if (!bookInfo.isLocalBook() && bookSource.isNullOrEmpty()) {
-            return returnData.setErrorMsg("未配置书源")
+            return returnData.setErrorMsg("未配置书源7")
         }
         var chapterList = getLocalChapterList(bookInfo, bookSource ?: "", false, userNameSpace)
         if (chapterIndex >= chapterList.size) {
@@ -444,7 +444,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
                     return returnData.setErrorMsg("请输入书籍链接")
                 }
                 if (bookInfo != null && !bookInfo.isLocalBook() && bookSource.isNullOrEmpty()) {
-                    return returnData.setErrorMsg("未配置书源")
+                    return returnData.setErrorMsg("未配置书源6")
                 }
                 bookInfo =
                     bookInfo ?: mergeBookCacheInfo(WebBook(bookSource ?: "", appConfig.debugLog).getBookInfo(bookUrl))
@@ -469,7 +469,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
             return returnData.setErrorMsg("获取书籍信息失败")
         }
         if (!bookInfo.isLocalBook() && bookSource.isNullOrEmpty()) {
-            return returnData.setErrorMsg("未配置书源")
+            return returnData.setErrorMsg("未配置书源5")
         }
         if (chapterInfo == null || chapterUrl.isNullOrEmpty()) {
             return returnData.setErrorMsg("获取章节链接失败")
@@ -596,7 +596,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         checkAuth(context)
         var bookSource = getBookSourceString(context)
         if (bookSource.isNullOrEmpty()) {
-            return returnData.setErrorMsg("未配置书源")
+            return returnData.setErrorMsg("未配置书源4")
         }
         var page: Int
         var ruleFindUrl: String
@@ -620,7 +620,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         checkAuth(context)
         var bookSource = getBookSourceString(context)
         if (bookSource.isNullOrEmpty()) {
-            return returnData.setErrorMsg("未配置书源")
+            return returnData.setErrorMsg("未配置书源3")
         }
         val key: String
         var page: Int
@@ -669,7 +669,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         var userNameSpace = getUserNameSpace(context)
         var userBookSourceList = loadBookSourceStringList(userNameSpace, bookSourceGroup)
         if (userBookSourceList.size <= 0) {
-            return returnData.setErrorMsg("未配置书源")
+            return returnData.setErrorMsg("未配置书源2")
         }
         if (key.isNullOrEmpty()) {
             return returnData.setErrorMsg("请输入搜索关键字")
@@ -860,7 +860,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         var userNameSpace = getUserNameSpace(context)
         var userBookSourceList = loadBookSourceStringList(userNameSpace, bookSourceGroup)
         if (userBookSourceList.size <= 0) {
-            return returnData.setErrorMsg("未配置书源")
+            return returnData.setErrorMsg("未配置书源17")
         }
         if (bookUrl.isNullOrEmpty()) {
             return returnData.setErrorMsg("请输入书籍链接")
@@ -964,7 +964,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         var userBookSourceList = loadBookSourceStringList(userNameSpace, bookSourceGroup)
         if (userBookSourceList.size <= 0) {
             response.write("event: error\n")
-            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源"), false) + "\n\n")
+            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源16"), false) + "\n\n")
             return
         }
         if (bookUrl.isNullOrEmpty()) {
@@ -2635,7 +2635,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
 
         if (bookSourceUrl.isNullOrEmpty()) {
             response.write("event: error\n")
-            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源"), false) + "\n\n")
+            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源15"), false) + "\n\n")
             return
         }
         if (keyword.isNullOrEmpty()) {
@@ -2648,7 +2648,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         var bookSourceString = getBookSourceBySourceURL(bookSourceUrl, userNameSpace).first
         if (bookSourceString.isNullOrEmpty()) {
             response.write("event: error\n")
-            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源"), false) + "\n\n")
+            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源14"), false) + "\n\n")
             return
         }
 
@@ -2718,7 +2718,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         var bookSource = getBookSourceString(context, bookInfo.origin)
         if (bookSource.isNullOrEmpty()) {
             response.write("event: error\n")
-            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源"), false) + "\n\n")
+            response.end("data: " + jsonEncode(returnData.setErrorMsg("未配置书源13"), false) + "\n\n")
             return
         }
 
@@ -2910,7 +2910,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         }
         var bookSource = getBookSourceString(context, bookInfo.origin)
         if (bookSource.isNullOrEmpty()) {
-            context.success(returnData.setErrorMsg("未配置书源"))
+            context.success(returnData.setErrorMsg("未配置书源12"))
             return
         }
         var exportDir = File(getWorkDir("storage", "assets", userNameSpace, "export"))
@@ -3248,7 +3248,7 @@ class BookController(coroutineContext: CoroutineContext) : BaseController(corout
         if (!bookInfo.isLocalBook()) {
             bookSource = getBookSourceString(context, bookInfo.origin)
             if (bookSource.isNullOrEmpty()) {
-                return returnData.setErrorMsg("未配置书源")
+                return returnData.setErrorMsg("未配置书源11")
             }
         }
 
